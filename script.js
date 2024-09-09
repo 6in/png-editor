@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropArea = document.getElementById('drop-area');
     const svgContainer = document.getElementById('svg-container');
     const saveBtn = document.getElementById('save-btn');
+    const fileInputBtn = document.getElementById('file-input-btn');
+    const fileInput = document.getElementById('file-input');
 
     dropArea.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -17,37 +19,45 @@ document.addEventListener('DOMContentLoaded', () => {
     dropArea.addEventListener('drop', (e) => {
         e.preventDefault();
         dropArea.style.borderColor = '#ccc';
-
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            const file = files[0];
-            if (file.type === 'image/png') {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const img = new Image();
-                    img.src = reader.result;
-                    img.onload = () => {
-                        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                        svg.setAttribute('width', img.width);
-                        svg.setAttribute('height', img.height);
-                        svg.setAttribute('viewBox', `0 0 ${img.width} ${img.height}`);
-
-                        const imgElement = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-                        imgElement.setAttributeNS(null, 'href', img.src);
-                        imgElement.setAttributeNS(null, 'width', img.width);
-                        imgElement.setAttributeNS(null, 'height', img.height);
-
-                        svg.appendChild(imgElement);
-                        svgContainer.innerHTML = '';
-                        svgContainer.appendChild(svg);
-                    };
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('PNGファイルをドロップしてください');
-            }
-        }
+        handleFile(e.dataTransfer.files[0]);
     });
+
+    fileInputBtn.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        handleFile(file);
+    });
+
+    function handleFile(file) {
+        if (file && file.type === 'image/png') {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const img = new Image();
+                img.src = reader.result;
+                img.onload = () => {
+                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.setAttribute('width', img.width);
+                    svg.setAttribute('height', img.height);
+                    svg.setAttribute('viewBox', `0 0 ${img.width} ${img.height}`);
+
+                    const imgElement = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+                    imgElement.setAttributeNS(null, 'href', img.src);
+                    imgElement.setAttributeNS(null, 'width', img.width);
+                    imgElement.setAttributeNS(null, 'height', img.height);
+
+                    svg.appendChild(imgElement);
+                    svgContainer.innerHTML = '';
+                    svgContainer.appendChild(svg);
+                };
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('PNGファイルを選択してください');
+        }
+    }
 
     saveBtn.addEventListener('click', () => {
         const svg = svgContainer.querySelector('svg');

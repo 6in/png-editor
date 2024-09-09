@@ -16,37 +16,54 @@
             background-color: #f0f0f0;
         }
 
+        #controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
         #drop-area {
             border: 2px dashed #ccc;
             border-radius: 10px;
             width: 80%;
-            height: 80%;
+            height: 60vh;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: #ccc;
+            position: relative;
         }
 
         #svg-container {
             width: 80%;
-            height: 80%;
+            height: 60vh;
             overflow: auto;
         }
 
-        #save-btn {
-            margin-top: 20px;
+        #save-btn,
+        #file-input-btn {
+            margin-top: 10px;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+        }
+
+        #file-input {
+            display: none;
         }
     </style>
 </head>
 
 <body>
+    <div id="controls">
+        <button id="file-input-btn">ファイルを開く</button>
+        <input type="file" id="file-input" accept="image/png">
+        <button id="save-btn">SVGをPNG形式で保存</button>
+    </div>
     <div id="drop-area">ここにPNGファイルをドラッグ＆ドロップ</div>
     <div id="svg-container"></div>
-    <button id="save-btn">SVGをPNG形式で保存</button>
 
     <script src="script.js"></script>
 </body>
