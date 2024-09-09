@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNG to SVG Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            width: 80%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ccc;
+        }
+
+        #svg-container {
+            width: 80%;
+            height: 80%;
+            overflow: auto;
+        }
+
+        #save-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="drop-area">ここにPNGファイルをドラッグ＆ドロップ</div>
+    <div id="svg-container"></div>
+    <button id="save-btn">SVGをPNG形式で保存</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
